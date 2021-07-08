@@ -46,7 +46,7 @@
         </springProfile>
     </root>
 
-    <logger name="de.workshops" level="info"/>
+    <logger name="de.workshops" level="debug"/>
 
     <!-- debug, info, warn, severe, off -->
     <logger name="liquibase" level="warn"/>
