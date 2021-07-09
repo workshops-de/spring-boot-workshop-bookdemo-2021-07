@@ -3,7 +3,7 @@
     <springProfile name="default"><!-- no date, ansi colored, no file -->
         <!-- switch from long to short debug log -->
         <property name="PATTERN"
-                  value="%d{HH:mm:ss.SSS} [%X{user}] %highlight(%-5level) %highlight(%48.48logger) - %msg%n"/>
+                  value="%highlight(%-5level) %highlight(%48.48logger) - %msg%n"/><!-- %d{HH:mm:ss.SSS} [%X{user}]  -->
     </springProfile>
     <springProfile name="jenkins"><!-- date, no color, no file -->
         <property name="PATTERN"

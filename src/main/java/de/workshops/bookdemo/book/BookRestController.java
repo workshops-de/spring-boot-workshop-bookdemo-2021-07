@@ -1,12 +1,8 @@
 package de.workshops.bookdemo.book;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,8 +22,8 @@ public class BookRestController {
 	
 	@Autowired
 	private BookService bookService;
+
 	
-	    
 	@GetMapping
 	public List<Book> getAllBooks() {
 		return bookService.loadAllBooks();
@@ -48,9 +44,9 @@ public class BookRestController {
 		return this.bookService.search(searchRequest);
 	}
 	
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<String> exceptionHandler(IllegalAccessError ex) {
-    	return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("Fehler 🤯");
-    }
+//    @ExceptionHandler(NoSuchElementException.class)
+//    public ResponseEntity<String> exceptionHandler(NoSuchElementException ex) {
+//    	return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("Fehler 🤯");
+//    }
 	
 }

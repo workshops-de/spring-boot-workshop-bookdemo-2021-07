@@ -5,11 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Service
 public class BookService {
 
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Autowired
+	private ObjectMapper mapper;
 	
 	
 	public List<Book> loadAllBooks() {

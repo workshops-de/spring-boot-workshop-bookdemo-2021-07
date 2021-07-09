@@ -19,7 +19,7 @@ public class BookRepository {
 	private List<Book> books;
 	
 	@Autowired
-	private ObjectMapper mapper;
+	private ObjectMapper mapper ;
 	
 
 	@PostConstruct
@@ -55,6 +55,10 @@ public class BookRepository {
     
     private boolean hasAuthor(Book book, String author) {
         return book.getAuthor().contains(author);
+    }
+    
+    public void deleteAll() {
+    	//
     }
 
     
