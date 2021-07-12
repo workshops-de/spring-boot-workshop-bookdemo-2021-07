@@ -1,0 +1,18 @@
+{
+  "groups": [],
+  "properties": [
+    {
+      "name": "myapp.param1",
+      "type": "java.lang.Integer",
+      "description": "Das ist die Doku",
+      "sourceType": "de.workshops.bookdemo.config.ApplicationConfig"
+    },
+    {
+      "name": "myapp.param2",
+      "type": "java.lang.String",
+      "description": "Das ist die Doku 2",
+      "sourceType": "de.workshops.bookdemo.config.ApplicationConfig"
+    }
+  ],
+  "hints": []
+}

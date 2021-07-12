@@ -1,13 +1,28 @@
 server:
   port: 8080
 
-
+spring:
+  datasource:
+    url: jdbc:h2:mem:bookDB
+    driver-class-name: org.h2.Driver
+    username: user
+    password: pass
+  #jpa:
+    #database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      
 logging:
   pattern:
-    console: "%highlight(%-5level) %highlight(%48.48logger) - %msg%n"
+    console: "%d{HH:mm:ss} %highlight(%-5level) %highlight(%48.48logger) - %msg%n"
   level:
-    "[org.springframework.boot]": debug
+    "[org.springframework.boot]": info
+    "[org.hibernate.SQL]": debug
     
+myapp:
+  param1: 42
+  param2: value
 ---
 
 spring:
@@ -19,3 +34,7 @@ spring:
 server:
   port: 8081
 
+
+myapp:
+  param1: 23
+  param2: value2
