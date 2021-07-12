@@ -5,7 +5,7 @@
         <property name="PATTERN"
                   value="%highlight(%-5level) %highlight(%48.48logger) - %msg%n"/><!-- %d{HH:mm:ss.SSS} [%X{user}]  -->
     </springProfile>
-    <springProfile name="jenkins"><!-- date, no color, no file -->
+    <springProfile name="test"><!-- date, no color, no file -->
         <property name="PATTERN"
                   value="%d{dd.MM.yyyy HH:mm:ss.SSS} [%X{user}] [%thread] %-5level %logger{36} - %msg%n"/>
     </springProfile>
@@ -38,7 +38,7 @@
 
     <!-- For all those not explicitly defined below use this log level: -->
     <root level="INFO">
-        <springProfile name="default, jenkins">
+        <springProfile name="default, test">
             <appender-ref ref="STDOUT"/>
         </springProfile>
         <springProfile name="prod">

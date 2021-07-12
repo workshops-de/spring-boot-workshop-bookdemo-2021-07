@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+
+logging:
+  pattern:
+    console: "%highlight(%-5level) %highlight(%48.48logger) - %msg%n"
+  level:
+    "[org.springframework.boot]": debug
+    
+---
+
+spring:
+  config:
+    activate:
+      on-profile:
+      - test
+
+server:
+  port: 8081
+

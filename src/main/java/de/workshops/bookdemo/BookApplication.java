@@ -16,7 +16,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Slf4j
 public class BookApplication {
 
-	
 	public static void main(String[] args) {
 		SpringApplication.run(BookApplication.class, args);
 	}
