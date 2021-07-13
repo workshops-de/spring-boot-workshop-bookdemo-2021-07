@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +23,10 @@ public class BookRepository {
 	@Autowired
 	private ObjectMapper mapper ;
 	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	
 
 	@PostConstruct
 	public void init() throws Exception {
@@ -28,7 +34,8 @@ public class BookRepository {
 	}
 
 	public List<Book> findAllBooks() {
-		return this.books;
+		String sql = "SELECT * FROM book";      
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class));
 	}
 	
 	public Book findByIsbn(String isbn) {
