@@ -13,15 +13,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -38,20 +43,33 @@ class BookRestControllerTest {
 	@Autowired
 	BookRestController controller;
 	
-	@Autowired
 	MockMvc mockMvc;
 	
 	@Autowired
 	ObjectMapper objectMapper;
 	
+	@Autowired
+    private WebApplicationContext context;
+	
+	
+	@BeforeEach
+    public void setup() {
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(SecurityMockMvcConfigurers.springSecurity())
+                .build();
+    }
+	
 	
 	@Test
+	@WithMockUser(username = "userA")
 	void testDirectMethodCall() {
 		assertNotNull(controller);
 		assertEquals(3, controller.getAllBooks().size());
 	}
 	
 	@Test
+	@WithMockUser(username = "userA")
 	void testMockkMvc() throws Exception {
 		mockMvc.perform(get(BookRestController.REQUEST_URL))
 			.andDo(print())
@@ -60,6 +78,7 @@ class BookRestControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = "userA")
 	void testMockkMvcResult() throws Exception {
 		MvcResult mvcResult = mockMvc.perform(get(BookRestController.REQUEST_URL))
 			.andDo(print())
@@ -72,9 +91,11 @@ class BookRestControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username = "userA")
 	void testRestAssuredMockMvc() {
 		RestAssuredMockMvc.standaloneSetup(controller);
 		given()
+			.mockMvc(mockMvc)
 			.log().all()
 		.when()
 			.get(BookRestController.REQUEST_URL)
@@ -88,6 +109,7 @@ class BookRestControllerTest {
 	void testRestAssuredRealHttp() {
 		RestAssured.given()
 			.log().all()
+			.auth().basic("alice", "password")
 		.when()
 			.get(BookRestController.REQUEST_URL)
 		.then()

@@ -46,10 +46,12 @@ public class BookRepository {
 	public Book findByIsbn(String isbn) {
 		//return this.books.stream().filter(book -> hasIsbn(book, isbn)).findFirst().orElseThrow(() ->  new NoSuchElementException("No book present"));
 		
-		MapSqlParameterSource namedParameters = new MapSqlParameterSource();
 		String sql = "SELECT * FROM books WHERE isbn = :myIsbn";
+		
+		MapSqlParameterSource namedParameters = new MapSqlParameterSource();
 		namedParameters.addValue("myIsbn", isbn);
-        return namedParamJdbcTemplate.query(sql, namedParameters, new BeanPropertyRowMapper<>(Book.class)).get(0);
+        
+		return namedParamJdbcTemplate.query(sql, namedParameters, new BeanPropertyRowMapper<>(Book.class)).get(0);
 	}
 
 	public Book findByAuthor(String author) {

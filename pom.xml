@@ -59,7 +59,17 @@
 			<artifactId>liquibase-core</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
 
+
+		<!-- testing -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -80,26 +90,30 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-		   <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.6.2</version>
-                <configuration>
-                    <url>jdbc:postgresql://localhost:5432/bookshelf</url>
-                    <driver>org.postgresql.Driver</driver>
-                    <username>user</username>
-                    <password>password</password>
-                    <changeLogFile>src/main/resources/liquibase/changelog.xml</changeLogFile>
-                    <logging>info</logging>
-                    <verbose>false</verbose>
-                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-                </configuration>
-            </plugin>
-		  
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>3.6.2</version>
+				<configuration>
+					<url>jdbc:postgresql://localhost:5432/bookshelf</url>
+					<driver>org.postgresql.Driver</driver>
+					<username>user</username>
+					<password>password</password>
+					<changeLogFile>src/main/resources/liquibase/changelog.xml</changeLogFile>
+					<logging>info</logging>
+					<verbose>false</verbose>
+					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
