@@ -13,12 +13,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import de.workshops.bookdemo.book.Book;
 import de.workshops.bookdemo.book.BookJpaRepository;
+import de.workshops.bookdemo.book.BookRepository;
 
 @SpringBootTest
 class BookJpaRepositoryTest {
 
 	@Autowired
 	private BookJpaRepository repository;
+	
+	@Autowired
+	private BookRepository bookRepository;
 	
 	
 	@Test
@@ -40,6 +44,17 @@ class BookJpaRepositoryTest {
 	    repository.findAll().forEach(result::add);
 
 		assertEquals(3, result.size());
+	}
+
+	@Test
+	void testFindByIsbn() {
+		assertNotNull(repository.findByIsbn("978-0201633610"));
+		assertNotNull(repository.findByIsbnNative("978-0201633610"));
+	}
+
+	@Test
+	void testNamedParamTemplate() {
+		assertNotNull(bookRepository.findByIsbn("978-0201633610"));
 	}
 
 }

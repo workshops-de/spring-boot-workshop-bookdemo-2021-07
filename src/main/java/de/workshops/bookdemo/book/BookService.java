@@ -12,6 +12,9 @@ public class BookService {
 
 	@Autowired
 	private BookRepository bookRepository;
+
+	@Autowired
+	private BookJpaRepository jpaRepository;
 	
 	@Autowired
 	private ObjectMapper mapper;
@@ -22,7 +25,8 @@ public class BookService {
 	}
 
 	public Book loadBookByIsbn(String isbn) {
-		return this.bookRepository.findByIsbn(isbn);
+		//return this.bookRepository.findByIsbn(isbn);
+		return this.jpaRepository.findByIsbnNative(isbn);
 	}
 
 	public Book loadBookByAuthor(String author) {

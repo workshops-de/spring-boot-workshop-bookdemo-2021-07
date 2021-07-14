@@ -11,6 +11,8 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +27,9 @@ public class BookRepository {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	private NamedParameterJdbcTemplate namedParamJdbcTemplate;
 	
 	
 
@@ -34,12 +39,17 @@ public class BookRepository {
 	}
 
 	public List<Book> findAllBooks() {
-		String sql = "SELECT * FROM book";      
+		String sql = "SELECT * FROM books";      
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class));
 	}
 	
 	public Book findByIsbn(String isbn) {
-		return this.books.stream().filter(book -> hasIsbn(book, isbn)).findFirst().orElseThrow(() ->  new NoSuchElementException("No book present"));
+		//return this.books.stream().filter(book -> hasIsbn(book, isbn)).findFirst().orElseThrow(() ->  new NoSuchElementException("No book present"));
+		
+		MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+		String sql = "SELECT * FROM books WHERE isbn = :myIsbn";
+		namedParameters.addValue("myIsbn", isbn);
+        return namedParamJdbcTemplate.query(sql, namedParameters, new BeanPropertyRowMapper<>(Book.class)).get(0);
 	}
 
 	public Book findByAuthor(String author) {
